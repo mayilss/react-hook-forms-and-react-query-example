@@ -25,7 +25,7 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -65,4 +65,47 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.ant-space {
+  width: 600px;
+}
+
+.ant-divider {
+  border-block-color: #f9f9f9;
+}
+
+.ant-typography {
+  color: #f9f9f9 !important;
+  font-size: 16px;
+}
+
+.ant-alert {
+  border: none;
+  color: #f9f9f9;
+  height: 20px;
+  width: 64px;
+  font-size: 14px;
+}
+
+.ant-alert-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ant-alert-warning {
+  background-color: #d0b526;
+}
+
+.ant-alert-success {
+  background-color: #538026;
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseApi = axios.create({
-  baseURL: `${import.meta.env.BASE_URL}/todos.json`,
+  baseURL: import.meta.env.VITE_BASE_URL,
 });
 
 export default baseApi;
