@@ -1,10 +1,10 @@
 import { Space, Spin } from "antd";
-import todoService from "../../api/todo-api";
+import todoApi from "../../api/todo-api";
 import Error from "../../components/error/Error";
 import TodoList from "../../components/todo-list/TodoList";
 
 export default function HomePage() {
-  const { data, isPending, isError, error } = todoService.useGetTodos();
+  const { data, isPending, isError, error } = todoApi.useGetTodos();
 
   if (isPending) return <Spin />;
   if (isError) return <Error message={error.message} />;
