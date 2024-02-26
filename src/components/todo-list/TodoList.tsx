@@ -1,8 +1,7 @@
-import { Space, Typography } from "antd";
+import { Space } from "antd";
 import TodoItem from "../../components/todo/Todo";
+import TodoListHeading from "../../components/todo-list-heading/TodoListHeading";
 import { Todo } from "../../models";
-
-const { Title } = Typography;
 
 type TodoListProps = {
   todos: Todo[];
@@ -11,10 +10,10 @@ type TodoListProps = {
 export default function TodoList({ todos }: TodoListProps) {
   return (
     <Space direction="vertical">
-      <Title>My Todo List</Title>
+      <TodoListHeading />
       <ul>
         {todos.map((todo) => (
-          <TodoItem todo={todo} />
+          <TodoItem key={todo.id} todo={todo} />
         ))}
       </ul>
     </Space>
