@@ -9,16 +9,6 @@ import {
 import { TextAreaProps } from "antd/es/input";
 import { Control, Controller, FieldPath, FieldValues } from "react-hook-form";
 
-// type InputType = "input" | "textarea" | "select";
-
-// type InputProps<A, T extends FieldValues = FieldValues> = A & {
-//   control: Control<T>;
-//   name: FieldPath<T>;
-//   label: string;
-//   type?: InputType;
-//   options?: { label: string; value: string }[];
-// };
-
 type InputPropsBase<T extends FieldValues> = {
   control: Control<T>;
   name: FieldPath<T>;
