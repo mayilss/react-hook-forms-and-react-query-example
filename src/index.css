@@ -86,6 +86,7 @@ li {
 .ant-typography {
   color: #f9f9f9 !important;
   font-size: 16px;
+  margin-top: 0.5em;
 }
 
 .ant-alert {
@@ -106,6 +107,28 @@ li {
   background-color: #d0b526;
 }
 
+.ant-alert-info {
+  background-color: #365c7b;
+}
+
 .ant-alert-success {
   background-color: #538026;
+}
+
+.ant-btn {
+  background-color: transparent;
+  color: unset;
+  border: none;
+}
+
+.ant-btn:hover {
+  background-color: transparent !important;
+  color: unset !important;
+  border: none !important;
+}
+
+.ant-form-item-label {
+  label {
+    color: #f9f9f9 !important;
+  }
 }
