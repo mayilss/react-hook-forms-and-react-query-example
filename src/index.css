@@ -68,15 +68,12 @@ button:focus-visible {
 }
 
 ul {
+  width: 100%;
   padding: 0;
 }
 
 li {
   list-style: none;
-}
-
-.ant-space {
-  width: 600px;
 }
 
 .ant-divider {
@@ -92,7 +89,7 @@ li {
 .ant-alert {
   border: none;
   color: #f9f9f9;
-  height: 20px;
+  height: 24px;
   width: 64px;
   font-size: 14px;
 }
@@ -107,7 +104,8 @@ li {
   background-color: #d0b526;
 }
 
-.ant-alert-info {
+.ant-alert-info,
+.ant-btn-primary {
   background-color: #365c7b;
 }
 
@@ -115,20 +113,27 @@ li {
   background-color: #538026;
 }
 
-.ant-btn {
+.ant-form-item-label {
+  label {
+    color: #f9f9f9 !important;
+  }
+}
+
+.container {
+  max-width: 600px;
+  padding: 0 8px;
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+.action-button {
   background-color: transparent;
   color: unset;
   border: none;
 }
 
-.ant-btn:hover {
+.action-button:hover {
   background-color: transparent !important;
   color: unset !important;
   border: none !important;
-}
-
-.ant-form-item-label {
-  label {
-    color: #f9f9f9 !important;
-  }
 }

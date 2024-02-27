@@ -6,12 +6,12 @@ import Heading from "../../components/heading/Heading";
 import { PlusCircle } from "lucide-react";
 
 export default function HomePage() {
-  const { data, isPending, isError, error } = todoApi.useGetTodos();
+  const { data, isPending, isError, error } = todoApi.useGetList();
 
   if (isPending) return <Spin />;
   if (isError) return <Error message={error.message} />;
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" className="container">
       <Heading>
         <Heading.Title>My Todo List</Heading.Title>
         <Heading.Link tooltip="Add Todo" to="form">
