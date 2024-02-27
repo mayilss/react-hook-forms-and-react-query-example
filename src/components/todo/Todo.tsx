@@ -1,7 +1,7 @@
 import { Alert, Button, Divider, Flex, Space, Typography } from "antd";
 import { Status } from "../../config/enums";
 import helpers from "../../helpers";
-import { Todo } from "../../models";
+import { ITodo } from "../../models";
 import { Trash2 } from "lucide-react";
 import todoApi from "../../api/todo-api";
 
@@ -9,26 +9,26 @@ const { Text } = Typography;
 const { getStatusColor } = helpers;
 
 type TodoProps = {
-  todo: Todo;
+  todo: ITodo;
 };
 
 export default function TodoItem({ todo }: TodoProps) {
-  const removeMutation = todoApi.useRemoveTodo();
+  const removeMutation = todoApi.useRemove();
 
   function onRemoveButtonClick() {
     removeMutation.mutate(todo.id);
   }
   return (
     <li>
-      <Flex align="center" gap="8px">
+      <Flex align="center" gap="8px" justify="space-between">
         <Space>
           <Alert
-            type={getStatusColor(todo.statusId)}
-            message={Status[todo.statusId]}
+            type={getStatusColor(Number(todo.statusId))}
+            message={Status[Number(todo.statusId)]}
           />
           <Text>{todo.title}</Text>
         </Space>
-        <Button onClick={onRemoveButtonClick}>
+        <Button onClick={onRemoveButtonClick} className="action-button">
           <Trash2 color="#E65A58" />
         </Button>
       </Flex>

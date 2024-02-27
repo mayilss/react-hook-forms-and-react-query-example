@@ -1,32 +1,32 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import baseApi from "../config/api-config";
-import { Todo } from "../models";
+import { ITodo } from "../models";
 import { toast } from "react-toastify";
 
-async function getTodos(): Promise<Todo[]> {
+async function getList(): Promise<ITodo[]> {
   const response = await baseApi.get("/todo/getList");
 
   return response.data;
 }
 
-function useGetTodos() {
+function useGetList() {
   return useQuery({
     queryKey: ["todos"],
-    queryFn: getTodos,
+    queryFn: getList,
   });
 }
 
-async function removeTodo(id: number) {
+async function remove(id: string) {
   const response = await baseApi.delete(`todo/remove?id=${id}`);
 
   return response.data;
 }
 
-function useRemoveTodo() {
+function useRemove() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: removeTodo,
+    mutationFn: remove,
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
       toast.success(res.message);
@@ -34,4 +34,22 @@ function useRemoveTodo() {
   });
 }
 
-export default { useGetTodos, useRemoveTodo };
+async function add(todo: ITodo) {
+  const response = await baseApi.post("todo/add", todo);
+
+  return response.data;
+}
+
+function useAdd() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: add,
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      toast.success(res.message);
+    },
+  });
+}
+
+export default { useGetList, useRemove, useAdd };

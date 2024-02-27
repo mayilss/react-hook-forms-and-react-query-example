@@ -1,25 +1,47 @@
-import { Space } from "antd";
+import { Button, Space } from "antd";
+import { DefaultOptionType } from "antd/es/select";
 import { Undo2 } from "lucide-react";
 import { useForm } from "react-hook-form";
+import statusApi from "../../api/status-api";
+import todoApi from "../../api/todo-api";
 import Input from "../../components/form/Input";
 import Heading from "../../components/heading/Heading";
-import { Todo } from "../../models";
+import { ITodo } from "../../models";
 
 export default function TodoForm() {
-  const methods = useForm<Todo>({
+  const methods = useForm<ITodo>({
     mode: "onBlur",
     defaultValues: {
       title: "",
       description: "",
-      statusId: 1,
+      statusId: "1",
     },
   });
 
-  function onSubmit(todo: Todo) {
-    console.log(todo);
+  const addTodo = todoApi.useAdd();
+  const getStatusList = statusApi.useGetList();
+
+  function getStatusOptions() {
+    let options: DefaultOptionType[] = [];
+    if (getStatusList.data) {
+      options = getStatusList.data.map((status) => ({
+        label: status.name,
+        value: String(status.id),
+      }));
+    }
+    return options;
   }
+
+  function onSubmit(todo: ITodo) {
+    addTodo.mutate(todo, {
+      onSuccess: () => {
+        methods.reset();
+      },
+    });
+  }
+
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" className="container">
       <Heading>
         <Heading.Title>Todo Form</Heading.Title>
         <Heading.Link tooltip="Go back" to="/">
@@ -44,8 +66,12 @@ export default function TodoForm() {
           name="statusId"
           label="Status"
           type="select"
-          options={[]}
+          options={getStatusOptions()}
+          loading={getStatusList.isPending}
         />
+        <Button htmlType="submit" type="primary" loading={addTodo.isPending}>
+          Submit
+        </Button>
       </form>
     </Space>
   );

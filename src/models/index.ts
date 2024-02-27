@@ -1,8 +1,11 @@
-import { Status } from "../config/enums";
-
-export interface Todo {
-  id: number;
+export interface ITodo {
+  id: string;
   title: string;
   description: string;
-  statusId: Status;
+  statusId: string;
+}
+
+export interface IStatus {
+  id: number;
+  name: string;
 }
