@@ -1,6 +1,5 @@
 import { Space } from "antd";
 import TodoItem from "../../components/todo/Todo";
-import TodoListHeading from "../../components/todo-list-heading/TodoListHeading";
 import { Todo } from "../../models";
 
 type TodoListProps = {
@@ -10,7 +9,6 @@ type TodoListProps = {
 export default function TodoList({ todos }: TodoListProps) {
   return (
     <Space direction="vertical">
-      <TodoListHeading />
       <ul>
         {todos.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
