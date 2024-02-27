@@ -33,15 +33,25 @@ type InputProps<T extends FieldValues> =
   | InputPropsTextarea<T>
   | InputPropsSelect<T>;
 
-export default function Input<T extends FieldValues>(props: InputProps<T>) {
-  const { type = "input", label, name, control, ...rest } = props;
+export default function Input<T extends FieldValues>({
+  type,
+  label,
+  name,
+  control,
+  ...rest
+}: InputProps<T>) {
   return (
     <Space direction="vertical">
       <Controller
         control={control}
         name={name}
         render={({ field, fieldState }) => (
-          <Form.Item label={label} help={fieldState.error?.message}>
+          <Form.Item
+            label={label}
+            help={fieldState.error?.message}
+            colon={false}
+            labelCol={{ span: 24 }}
+          >
             {type === "input" && (
               <AntInput {...(rest as AntInputProps)} {...field} />
             )}
@@ -53,7 +63,7 @@ export default function Input<T extends FieldValues>(props: InputProps<T>) {
               />
             )}
             {type === "select" && (
-              <Select {...field} {...(rest as SelectProps)} />
+              <Select {...(rest as SelectProps)} {...field} />
             )}
           </Form.Item>
         )}
