@@ -130,6 +130,7 @@ li {
   background-color: transparent;
   color: unset;
   border: none;
+  padding: 0;
 }
 
 .action-button:hover {

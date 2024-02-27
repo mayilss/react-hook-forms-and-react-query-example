@@ -1,3 +1,6 @@
+import { DefaultOptionType } from "antd/es/select";
+import { IStatus } from "../models";
+
 function getStatusColor(statusId: number) {
   switch (statusId) {
     case 1:
@@ -11,4 +14,15 @@ function getStatusColor(statusId: number) {
   }
 }
 
-export default { getStatusColor };
+function getStatusOptions(statuses: IStatus[] | undefined) {
+  let options: DefaultOptionType[] = [];
+  if (statuses) {
+    options = statuses.map((status) => ({
+      label: status.name,
+      value: String(status.id),
+    }));
+  }
+  return options;
+}
+
+export default { getStatusColor, getStatusOptions };
