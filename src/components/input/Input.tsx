@@ -6,7 +6,6 @@ import {
   SelectProps,
 } from "antd";
 import { TextAreaProps } from "antd/es/input";
-import { DefaultOptionType } from "antd/es/select";
 import { Control, Controller, FieldPath, FieldValues } from "react-hook-form";
 
 type InputPropsBase<T extends FieldValues> = {
@@ -16,16 +15,15 @@ type InputPropsBase<T extends FieldValues> = {
 };
 
 type InputPropsInput<T extends FieldValues> = InputPropsBase<T> & {
-  type: "input";
+  inputType: "input";
 } & AntInputProps;
 
 type InputPropsTextarea<T extends FieldValues> = InputPropsBase<T> & {
-  type: "textarea";
+  inputType: "textarea";
 } & TextAreaProps;
 
 type InputPropsSelect<T extends FieldValues> = InputPropsBase<T> & {
-  type: "select";
-  options: DefaultOptionType[];
+  inputType: "select";
 } & SelectProps;
 
 type InputProps<T extends FieldValues> =
@@ -34,7 +32,7 @@ type InputProps<T extends FieldValues> =
   | InputPropsSelect<T>;
 
 export default function Input<T extends FieldValues>({
-  type,
+  inputType,
   label,
   name,
   control,
@@ -51,17 +49,17 @@ export default function Input<T extends FieldValues>({
           colon={false}
           labelCol={{ span: 24 }}
         >
-          {type === "input" && (
+          {inputType === "input" && (
             <AntInput {...(rest as AntInputProps)} {...field} />
           )}
-          {type === "textarea" && (
+          {inputType === "textarea" && (
             <AntInput.TextArea
               rows={4}
               {...field}
               {...(rest as TextAreaProps)}
             />
           )}
-          {type === "select" && (
+          {inputType === "select" && (
             <Select {...(rest as SelectProps)} {...field} />
           )}
         </Form.Item>

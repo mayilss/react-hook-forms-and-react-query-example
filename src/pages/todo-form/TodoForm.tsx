@@ -3,7 +3,7 @@ import { Undo2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import statusApi from "../../api/status-api";
 import todoApi from "../../api/todo-api";
-import Input from "../../components/form/Input";
+import Input from "../../components/input/Input";
 import Heading from "../../components/heading/Heading";
 import { ITodo } from "../../models";
 import helpers from "../../helpers";
@@ -47,7 +47,7 @@ export default function TodoForm() {
           control={methods.control}
           name="statusId"
           label="Status"
-          type="select"
+          inputType="select"
           options={getStatusOptions(getStatusList.data)}
           loading={getStatusList.isPending}
         />
@@ -55,13 +55,13 @@ export default function TodoForm() {
           control={methods.control}
           name="title"
           label="Title"
-          type="input"
+          inputType="input"
         />
         <Input
           control={methods.control}
           name="description"
           label="Description"
-          type="textarea"
+          inputType="textarea"
         />
         <Button htmlType="submit" type="primary" loading={addTodo.isPending}>
           Submit
