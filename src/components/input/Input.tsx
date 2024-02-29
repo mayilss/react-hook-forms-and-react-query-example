@@ -6,7 +6,14 @@ import {
   SelectProps,
 } from "antd";
 import { TextAreaProps } from "antd/es/input";
-import { Control, Controller, FieldPath, FieldValues } from "react-hook-form";
+import React from "react";
+import {
+  Control,
+  Controller,
+  ControllerRenderProps,
+  FieldPath,
+  FieldValues,
+} from "react-hook-form";
 
 type InputPropsBase<T extends FieldValues> = {
   control: Control<T>;
@@ -38,6 +45,23 @@ export default function Input<T extends FieldValues>({
   control,
   ...rest
 }: InputProps<T>) {
+  const inputComponent = React.useMemo(
+    () => ({
+      input: (field: ControllerRenderProps<T>) => (
+        <AntInput {...(rest as AntInputProps)} {...field} />
+      ),
+      textarea: (field: ControllerRenderProps<T>) => (
+        <AntInput.TextArea rows={4} {...field} {...(rest as TextAreaProps)} />
+      ),
+      select: (field: ControllerRenderProps<T>) => (
+        <Select {...(rest as SelectProps)} {...field} />
+      ),
+    }),
+    [rest]
+  );
+
+  const renderInput = inputComponent[inputType];
+
   return (
     <Controller
       control={control}
@@ -49,19 +73,7 @@ export default function Input<T extends FieldValues>({
           colon={false}
           labelCol={{ span: 24 }}
         >
-          {inputType === "input" && (
-            <AntInput {...(rest as AntInputProps)} {...field} />
-          )}
-          {inputType === "textarea" && (
-            <AntInput.TextArea
-              rows={4}
-              {...field}
-              {...(rest as TextAreaProps)}
-            />
-          )}
-          {inputType === "select" && (
-            <Select {...(rest as SelectProps)} {...field} />
-          )}
+          {renderInput(field)}
         </Form.Item>
       )}
     />
