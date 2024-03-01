@@ -1,19 +1,18 @@
 import { Button, Space, Spin } from "antd";
 import { Undo2 } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import statusApi from "../../api/status-api";
 import todoApi from "../../api/todo-api";
 import Error from "../../components/error/Error";
 import Heading from "../../components/heading/Heading";
 import Input from "../../components/input/Input";
 import helpers from "../../helpers";
-import { ITodo } from "../../models";
 import hooks from "../../hooks";
+import { ITodo } from "../../models";
 
 export default function TodoForm() {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const methods = useForm<ITodo>({
     mode: "onBlur",
@@ -26,17 +25,18 @@ export default function TodoForm() {
 
   const addTodo = todoApi.useAdd();
   const getTodoById = todoApi.useGetById(id);
+  const updateTodo = todoApi.useUpdate();
 
   const getStatusList = statusApi.useGetList();
 
   hooks.useSetTodoToForm(getTodoById.data, methods);
 
   function onSubmit(todo: ITodo) {
-    addTodo.mutate(todo, {
-      onSuccess: () => {
-        navigate("/");
-      },
-    });
+    if (id) {
+      updateTodo.mutate(todo);
+    } else {
+      addTodo.mutate(todo);
+    }
   }
 
   if (getTodoById.isFetching) return <Spin />;

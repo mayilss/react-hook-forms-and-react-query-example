@@ -2,6 +2,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import baseApi from "../config/api-config";
 import { ITodo } from "../models";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import helpers from "../helpers";
 
 async function getList(): Promise<ITodo[]> {
   const response = await baseApi.get("/todo/getList");
@@ -24,13 +26,16 @@ async function add(todo: ITodo) {
 
 function useAdd() {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: add,
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
       toast.success(res.message);
+      navigate("/");
     },
+    onError: helpers.onErrorResponse,
   });
 }
 
@@ -66,4 +71,25 @@ function useGetById(id: string | undefined) {
   });
 }
 
-export default { useGetList, useRemove, useAdd, useGetById };
+async function update(todo: ITodo) {
+  const response = await baseApi.put("todo/update", todo);
+
+  return response.data;
+}
+
+function useUpdate() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: update,
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      toast.success(res.message);
+      navigate("/");
+    },
+    onError: helpers.onErrorResponse,
+  });
+}
+
+export default { useGetList, useRemove, useAdd, useGetById, useUpdate };

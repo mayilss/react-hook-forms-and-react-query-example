@@ -1,5 +1,7 @@
 import { DefaultOptionType } from "antd/es/select";
-import { IStatus } from "../models";
+import { IError, IStatus } from "../models";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 function getStatusColor(statusId: string) {
   switch (statusId) {
@@ -25,4 +27,8 @@ function getStatusOptions(statuses: IStatus[] | undefined) {
   return options;
 }
 
-export default { getStatusColor, getStatusOptions };
+function onErrorResponse(error: AxiosError<IError>) {
+  toast.error(error.response?.data.message);
+}
+
+export default { getStatusColor, getStatusOptions, onErrorResponse };
