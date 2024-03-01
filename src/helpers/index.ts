@@ -1,13 +1,13 @@
 import { DefaultOptionType } from "antd/es/select";
 import { IStatus } from "../models";
 
-function getStatusColor(statusId: number) {
+function getStatusColor(statusId: string) {
   switch (statusId) {
-    case 1:
+    case "1":
       return "info";
-    case 2:
+    case "2":
       return "warning";
-    case 3:
+    case "3":
       return "success";
     default:
       return "info";

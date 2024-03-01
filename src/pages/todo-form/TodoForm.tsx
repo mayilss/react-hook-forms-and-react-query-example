@@ -9,7 +9,7 @@ import Heading from "../../components/heading/Heading";
 import Input from "../../components/input/Input";
 import helpers from "../../helpers";
 import { ITodo } from "../../models";
-import React from "react";
+import hooks from "../../hooks";
 
 export default function TodoForm() {
   const { id } = useParams();
@@ -25,19 +25,15 @@ export default function TodoForm() {
   });
 
   const addTodo = todoApi.useAdd();
-  const getStatusList = statusApi.useGetList();
   const getTodoById = todoApi.useGetById(id);
 
-  React.useEffect(() => {
-    if (getTodoById.data) {
-      methods.reset(getTodoById.data);
-    }
-  }, [getTodoById.data, methods]);
+  const getStatusList = statusApi.useGetList();
+
+  hooks.useSetTodoToForm(getTodoById.data, methods);
 
   function onSubmit(todo: ITodo) {
     addTodo.mutate(todo, {
       onSuccess: () => {
-        methods.reset();
         navigate("/");
       },
     });
