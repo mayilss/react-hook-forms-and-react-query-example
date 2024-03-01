@@ -4,6 +4,7 @@ import {
   Form,
   Select,
   SelectProps,
+  Typography,
 } from "antd";
 import { TextAreaProps } from "antd/es/input";
 import React from "react";
@@ -69,7 +70,11 @@ export default function Input<T extends FieldValues>({
       render={({ field, fieldState }) => (
         <Form.Item
           label={label}
-          help={fieldState.error?.message}
+          help={
+            <Typography.Text className="error-message">
+              {fieldState.error?.message}
+            </Typography.Text>
+          }
           colon={false}
           labelCol={{ span: 24 }}
         >

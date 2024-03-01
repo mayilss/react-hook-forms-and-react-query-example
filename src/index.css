@@ -138,3 +138,7 @@ li {
   color: unset !important;
   border: none !important;
 }
+
+.error-message {
+  color: #ee786c !important;
+}

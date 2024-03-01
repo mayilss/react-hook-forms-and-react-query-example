@@ -10,6 +10,8 @@ import Input from "../../components/input/Input";
 import helpers from "../../helpers";
 import hooks from "../../hooks";
 import { ITodo } from "../../models";
+import validationSchema from "./validationSchema";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function TodoForm() {
   const { id } = useParams();
@@ -21,6 +23,7 @@ export default function TodoForm() {
       description: "",
       statusId: "1",
     },
+    resolver: yupResolver(validationSchema),
   });
 
   const addTodo = todoApi.useAdd();
