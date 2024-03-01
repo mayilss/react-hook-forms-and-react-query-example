@@ -52,4 +52,18 @@ function useRemove() {
   });
 }
 
-export default { useGetList, useRemove, useAdd };
+async function getById(id: string | undefined): Promise<ITodo> {
+  const response = await baseApi.get(`todo/getById?id=${id}`);
+
+  return response.data;
+}
+
+function useGetById(id: string | undefined) {
+  return useQuery({
+    queryKey: ["todo", id],
+    queryFn: () => getById(id),
+    enabled: Boolean(id),
+  });
+}
+
+export default { useGetList, useRemove, useAdd, useGetById };

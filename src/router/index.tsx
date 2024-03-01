@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/form",
+    path: "/form/:id?",
     element: <TodoForm />,
   },
 ]);
