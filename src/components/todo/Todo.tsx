@@ -15,7 +15,7 @@ export default function TodoItem({ todo }: TodoProps) {
   const removeMutation = todoApi.useRemove();
 
   function onRemoveButtonClick() {
-    removeMutation.mutate(todo.id);
+    removeMutation.mutate(todo.id as string);
   }
   function onEditButtonClick() {
     navigate(`/form/${todo.id}`);

@@ -1,3 +1,4 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Space, Spin } from "antd";
 import { Undo2 } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -11,13 +12,11 @@ import helpers from "../../helpers";
 import hooks from "../../hooks";
 import { ITodo } from "../../models";
 import validationSchema from "./validationSchema";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function TodoForm() {
   const { id } = useParams();
 
   const methods = useForm<ITodo>({
-    mode: "onBlur",
     defaultValues: {
       title: "",
       description: "",

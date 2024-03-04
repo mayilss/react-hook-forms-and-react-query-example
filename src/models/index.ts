@@ -1,8 +1,8 @@
 export interface ITodo {
-  id?: string;
   title: string;
-  description?: string;
   statusId: string;
+  id?: string;
+  description?: string;
 }
 
 export interface IStatus {

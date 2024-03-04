@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import baseApi from "../config/api-config";
-import { ITodo } from "../models";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import baseApi from "../config/api-config";
 import helpers from "../helpers";
+import { ITodo } from "../models";
 
 async function getList(): Promise<ITodo[]> {
   const response = await baseApi.get("/todo/getList");
@@ -31,7 +31,10 @@ function useAdd() {
   return useMutation({
     mutationFn: add,
     onSuccess: (res) => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.invalidateQueries({
+        queryKey: ["todos"],
+        refetchType: "inactive",
+      });
       toast.success(res.message);
       navigate("/");
     },
@@ -84,7 +87,10 @@ function useUpdate() {
   return useMutation({
     mutationFn: update,
     onSuccess: (res) => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.invalidateQueries({
+        queryKey: ["todos"],
+        refetchType: "inactive",
+      });
       toast.success(res.message);
       navigate("/");
     },
