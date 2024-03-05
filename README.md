@@ -6,6 +6,9 @@ This repository contains an example project showcasing the integration of React 
 
 The purpose of this project is to demonstrate how to effectively use React Hook Forms for form management and React Query for data fetching and caching within a React application. It serves as a simple todo app to illustrate how to handle CRUD operations using React Hook Forms and React Query. By combining these two libraries, developers can create forms that efficiently handle user input validation, submission, and asynchronous data fetching without the need for additional state management libraries.
 
+![Home page](src/assets/images/home.PNG)
+![Form page](src/assets/images/todo-form.PNG)
+
 ## How to Run
 
 To run this project locally, follow these steps:
